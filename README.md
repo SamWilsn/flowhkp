@@ -7,7 +7,12 @@ Thunderbird to resolve keys.
 
 ## Installation
 
-Install it (`cargo install`), and point a systemd user service at it.
+1. `cargo build --release`
+1. `sudo cp target/release/flowhkp /usr/local/bin/`
+1. `sudo chown root:root /usr/local/bin/flowhkp`
+1. `sudo cp systemd/flowhkp.service /etc/systemd/system/`
+1. `sudo chown root:root /etc/systemd/system/flowhkp.service`
+1. `sudo systemctl enable --now flowhkp.service`
 
 ## Configuration
 

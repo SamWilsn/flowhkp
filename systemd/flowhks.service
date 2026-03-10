@@ -1,0 +1,47 @@
+[Unit]
+Description=A proxy server converting HKP to Flowcrypt's API
+Documentation=https://github.com/SamWilsn/flowhkp
+
+# https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/flowhkp
+
+# Process management
+####################
+
+Type=exec
+
+Restart=on-failure
+
+DynamicUser=yes
+
+# Hardening measures
+####################
+
+IPAddressAllow=localhost
+CapabilityBoundingSet=
+PrivateUsers=self
+ProtectHostname=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=strict
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictRealtime=true
+LockPersonality=true
+ProtectProc=invisible
+
+[Install]
+WantedBy=multi-user.target
